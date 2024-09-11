@@ -20,7 +20,9 @@ from django.urls import re_path
 from firstapp import views
 
 urlpatterns = [
-    re_path (r'^about/contact/', views.contact),
+    path('', views.index),
     re_path(r'^about', views.about),
-    path ('', views. index),
+    re_path(r'^contact', views.contact),
+    path('products/<int:productid>/', views.products),
+    path('users/', views.users),
 ]
