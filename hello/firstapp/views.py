@@ -10,6 +10,7 @@ def about(request):
     return HttpResponse("About")
 def contact(request):
     return HttpResponseRedirect("/about")
+#help
 def details(request):
     return HttpResponsePermanentRedirect("/")
 def m304(request):
