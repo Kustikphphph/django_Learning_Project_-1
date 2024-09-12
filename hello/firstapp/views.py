@@ -1,10 +1,18 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.http import *
+from django.template.response import TemplateResponse
 # Create your views here.
 
 def index(request):
-    return HttpResponse("Index")
+    header = "Персональные данные" # обычная переменная
+    langs = ["Английский", "Немецкий", "Испанский"] # массив
+    user = {"name": "Максим,", "age": 30} # словарь
+    addr = ("Виноградная", 23, 45) # кортеж
+    data = {"header": header, "langs": langs, "user": user, "address":
+    addr}
+    return TemplateResponse(request, "index.html", data)
+
 def about(request):
     return HttpResponse("About")
 def contact(request):
