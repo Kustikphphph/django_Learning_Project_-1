@@ -5,7 +5,9 @@ from django.template.response import TemplateResponse
 # Create your views here.
 
 def index(request):
-    return render(request, "firstapp/index.html")
+    cat = ["Ноутбуки", "Принтеры", "Сканеры", "Диски", "Шнуры"]
+    return render(request, "firstapp/index.html", context={"cat": cat})
+
 def about(request):
     return HttpResponse("About")
 def contact(request):
