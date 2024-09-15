@@ -4,6 +4,7 @@ from django.http import *
 from django.template.response import TemplateResponse
 from .forms import UserForm
 
+
 # Create your views here.
 
 def index(request):
