@@ -19,6 +19,7 @@ from django.urls import path
 from django.urls import re_path
 from firstapp import views
 from django.views.generic import TemplateView
+
 #AAAAAAAAAAAAA
 urlpatterns = [
     path('', views.index),
