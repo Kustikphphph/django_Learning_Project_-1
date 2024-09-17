@@ -1,4 +1,15 @@
 from django import forms
 
 class UserForm(forms.Form):
-    num = forms.DecimalField(label="Введите десятичное число", decimal_places=2)
+     city = forms.TypedMultipleChoiceField(label="Выберите город",
+            empty_value=None,
+            choices=((1, "Москва"),
+                    (2, "Воронеж"),
+                    (3, "Курск"),
+                    (4, "Томск"),
+                    (5, "Томск"),
+                    (6, "Томск")))
+
+
+
+
