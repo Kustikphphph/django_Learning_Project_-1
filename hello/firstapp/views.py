@@ -4,19 +4,54 @@ from django.http import *
 from django.template.response import TemplateResponse
 from .forms import UserForm
 from .models import Person
+from .models import Company, Product
+from .models import Student, Cours
+from .models import User, Account
 from django.db.models import F
 # Create your views here.
 
-person=Person.objects.get(id=2)
-person.delete()
+
+alex=User.objects.create(name="Александр")
+acc=Account(login="1234", password="6565")
+alex.account=acc
+alex.account.save()
+alex.account.login="qwerty"
+alex.account.password="123456"
+alex.account.save()
 def index(request):
-    userform = UserForm()
+    people = Person.objects.all()
+    return render(request, "index.html", {"people": people})
+# сохранение данных в БД
+def create(request):
     if request.method == "POST":
-        userform = UserForm(request.POST)
-        if userform.is_valid():
-            name = userform.cleaned_data["name"]
-            return HttpResponse("<h2>Имя введено коррректно – {0}</h2>".format(name))
-    return render(request, "firstapp/index.html", {"form": userform})
+        klient = Person()
+        klient.name = request.POST.get("name")
+        klient.age = request.POST.get("age")
+        klient.save()
+    return HttpResponseRedirect("/")
+# изменение данных в БД
+def edit(request, id):
+    try:
+        person = Person.objects.get(id=id)
+        if request.method == "POST":
+            person.name = request.POST.get("name")
+            person.age = request.POST.get("age")
+            person.save()
+            return HttpResponseRedirect("/")
+        else:
+            return render(request, "edit.html", {"person": person})
+    except Person.DoesNotExist:
+        return HttpResponseNotFound("<h2>Клиент не найден</h2>")
+# удаление данных из БД
+def delete(request, id):
+    try:
+        person = Person.objects.get(id=id)
+        person.delete()
+        return HttpResponseRedirect("/")
+    except Person.DoesNotExist:
+        return HttpResponseNotFound("<h2>Клиент не найден</h2>")
+
+
 def about(request):
     return HttpResponse("About")
 def contact(request):
