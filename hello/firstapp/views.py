@@ -3,10 +3,12 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanen
 from django.http import *
 from django.template.response import TemplateResponse
 from .forms import UserForm
-
-
+from .models import Person
+from django.db.models import F
 # Create your views here.
 
+person=Person.objects.get(id=2)
+person.delete()
 def index(request):
     userform = UserForm()
     if request.method == "POST":
