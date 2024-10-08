@@ -35,6 +35,7 @@ class BookInstanceAdmin(admin.ModelAdmin):
         'fields': ('status', 'due_back', 'borrower')
         }),
     )   
-
+    def my_queryset(self, request):
+        return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='2').order_by('due_back')
 
 

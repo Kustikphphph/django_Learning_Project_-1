@@ -4,6 +4,7 @@ from .models import Book, Author, BookInstance, Genre
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from catalog import views
+from .forms import AuthorsForm
 
 # Create your views here.
 
@@ -43,5 +44,10 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
     template_name = 'catalog/bookinstance_list_borrowed_user.html'
     paginate_by = 10
     def get_queryset(self):
-        return 
-BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='2').order_by('due_back')
+        return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='2').order_by('due_back')
+    
+def authors_add(request):
+    author = Author.objects.all()
+    authorsform = AuthorsForm()
+    return render(request, "catalog/authors_add.html",
+    {"form": authorsform, "author": author})
