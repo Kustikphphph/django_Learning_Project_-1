@@ -10,18 +10,32 @@ from .models import User, Account
 from django.db.models import F
 # Create your views here.
 
-
-alex=User.objects.create(name="Александр")
-acc=Account(login="1234", password="6565")
-alex.account=acc
-alex.account.save()
-alex.account.login="qwerty"
-alex.account.password="123456"
-alex.account.save()
 def index(request):
-    people = Person.objects.all()
-    return render(request, "index.html", {"people": people})
+    my_kv = ['I квартал ->', 'II квартал ->', 'III квартал->',
+    'IV квартал->']
+    my_month = ['Январь', 'Февраль', 'Март',
+    'Апрель', 'Май', 'Июнь',
+    'Июль', 'Август', 'Сентябрь',
+    'Октябрь', 'Ноябрь', 'Декабрь']
+    context = {'my_month': my_month, 'my_kv': my_kv}
+    return render(request, "firstapp/index1.html", context)
+
+def about(request):
+    return render(request, "firstapp/about.html")
+def contact(request):
+    return render(request, "firstapp/contact.html")
+# alex=User.objects.create(name="Александр")
+# acc=Account(login="1234", password="6565")
+# alex.account=acc
+# alex.account.save()
+# alex.account.login="qwerty"
+# alex.account.password="123456"
+# alex.account.save()
+# def index(request):
+#     people = Person.objects.all()
+#     return render(request, "index.html", {"people": people})
 # сохранение данных в БД
+
 def create(request):
     if request.method == "POST":
         klient = Person()
@@ -52,10 +66,10 @@ def delete(request, id):
         return HttpResponseNotFound("<h2>Клиент не найден</h2>")
 
 
-def about(request):
-    return HttpResponse("About")
-def contact(request):
-    return HttpResponseRedirect("/about")
+# def about(request):
+#     return HttpResponse("About")
+# def contact(request):
+#     return HttpResponseRedirect("/about")
 #help
 def details(request):
     return HttpResponsePermanentRedirect("/")
