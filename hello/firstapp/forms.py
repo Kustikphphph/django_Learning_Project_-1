@@ -6,5 +6,5 @@ from django import forms
 #     age = forms.IntegerField(label="Возраст клиента",
 #     widget=forms.NumberInput(attrs={"class": "myfield"}))
 class UserForm(forms.Form):
-     file_path = forms.FilePathField(label="Выберите файл",
-                                    path='C:/Users/Student28/Desktop/Урок/')
+     uuid_text = forms.UUIDField(label="Введите UUID",
+          help_text="Формат xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
