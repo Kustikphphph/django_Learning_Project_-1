@@ -1,31 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
- <meta charset="utf-8">
- <title>Форма Django!</title>
- <style>
- .myfield{
- border:2px solid #ff9900;
- border-radius:5px;
- height:25px;
- width:200px;
- margin: 10px 10px 10px 0;
- }
- </style>
-</head>
-<body class="container">
-<h2>Стилизация полей</h2>
- <form method="POST">
- {% csrf_token %}
- <div>
- {% for field in form %}
- <div class="row">
- {{field.label_tag}}
- <div class="col-md-10">{{field}}</div>
- </div>
- {% endfor %}
- </div>
- <input type="submit" value="Оправить" >
- </form>
-</body>
-</html>
+{% extends "firstapp/base1.html" %}
+{% block title %}Главная страница{% endblock title %} 
+{% block header %}Это главная страница сайта - index.html.{% endblock header %} 
+{% block content%} 
+<div class="container-fluid my-2 text-start"> 
+<div class="row"> 
+<div class="col text-center text-dark"> 
+<div>{{ my_text }}</div> 
+</div> 
+</div>
+</div> 
+{% endblock content %}
