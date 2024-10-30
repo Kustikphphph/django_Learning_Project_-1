@@ -18,6 +18,8 @@ def index(request):
     'Июль', 'Август', 'Сентябрь',
     'Октябрь', 'Ноябрь', 'Декабрь']
     context = {'my_month': my_month, 'my_kv': my_kv}
+    my_text = 'Изучаем формы Django'
+    context = {'my_text': my_text}
     return render(request, "firstapp/index1.html", context)
 
 def about(request):
@@ -25,7 +27,17 @@ def about(request):
 def contact(request):
     return render(request, "firstapp/contact.html")
 def myform(request):
-    return render(request,"firstapp/myform.html" )
+    if request.method == "POST":
+        userform = UserForm(request.POST)
+        if userform.is_valid():
+            name = request.POST.get("name") # получить значение поля Имя
+            age = request.POST.get("age") # получить значение поля Возраст
+            output = "<h2>Пользователь</h2><h3>Имя - {0}," \
+                " Возраст – {1} </h3 >".format(name, age)
+            return HttpResponse(output)
+    userform = UserForm()
+    return render(request, "firstapp/myform.html", {"form": userform})
+
 # alex=User.objects.create(name="Александр")
 # acc=Account(login="1234", password="6565")
 # alex.account=acc
