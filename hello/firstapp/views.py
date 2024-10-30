@@ -24,6 +24,8 @@ def about(request):
     return render(request, "firstapp/about.html")
 def contact(request):
     return render(request, "firstapp/contact.html")
+def myform(request):
+    return render(request,"firstapp/myform.html" )
 # alex=User.objects.create(name="Александр")
 # acc=Account(login="1234", password="6565")
 # alex.account=acc
