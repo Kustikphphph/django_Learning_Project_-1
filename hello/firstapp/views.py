@@ -8,6 +8,10 @@ from .models import Company, Product
 from .models import Student, Cours
 from .models import User, Account
 from django.db.models import F
+from .models import Image
+from .forms import ImageForm
+from django.shortcuts import redirect
+
 # Create your views here.
 
 def index(request):
@@ -29,7 +33,7 @@ def contact(request):
 def myform(request):
     my_form = UserForm() 
     context = {"form": my_form} 
-    return render(request, "firstapp/my_form.html", context)
+    return render(request, "firstapp/myform.html", context)
 
 # alex=User.objects.create(name="Александр")
 # acc=Account(login="1234", password="6565")
@@ -71,6 +75,28 @@ def delete(request, id):
         return HttpResponseRedirect("/")
     except Person.DoesNotExist:
         return HttpResponseNotFound("<h2>Клиент не найден</h2>")
+
+
+# загрузка изображений
+def form_up_img(request):
+    if request.method == 'POST':
+        form = ImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+    my_text = 'Загруженные изображения'
+    my_img = Image.obj_img.all()
+    form = ImageForm()
+    context = {'my_text': my_text, "my_img": my_img, "form": form}
+    return render(request, 'firstapp/form_up_img.html', context)
+
+# удаление изображения из БД
+def delete_img(request, id):
+    try:
+        img = Image.obj_img.get(id=id)
+        img.delete()
+        return redirect('form_up_img')
+    except Person.DoesNotExist:
+        return HttpResponseNotFound("<h2>Объект не найден</h2>")
 
 
 # def about(request):
